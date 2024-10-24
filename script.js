@@ -1,6 +1,6 @@
-let first_num;
-let second_num;
-let operator;
+let firstNumber = null;
+let secondNumber = null;
+let operator = null;
 
 function add(num1, num2) {
     return num1 + num2;

@@ -2,21 +2,23 @@ let firstNumber = null;
 let secondNumber = null;
 let operator = null;
 
-function add(num1, num2) {
-    return num1 + num2;
+function add(a, b) {
+    return a + b;
 }
 
-function subtract(num1, num2) {
-    return num1 - num2;
+function subtract(a, b) {
+    return a - b;
 }
 
-const multiply = (num1, num2) => num1 * num2;
+function multiply(a, b) { 
+    return a * b;
+}
 
-function divide (num1, num2) {
-    if (num2 === 0) {
+function divide (a, b) {
+    if (b === 0) {
         return "Error: Division by zero";
     }
-    return num1 / num2;
+    return a / b;
 }
 
 // function operate(operator, num1, num2) {

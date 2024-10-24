@@ -51,3 +51,20 @@ function updateDisplay() {
 }
 
 // event listeners for all buttons
+const buttons = document.querySelectorAll(".buttons");
+buttons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+        const buttonValue = event.target.getAttribute('data-value');
+
+        if (!buttonValue) return;
+
+        if (displayValue === '0') {
+            displayValue = buttonValue;
+        }else {
+            displayValue += buttonValue;
+        }
+        updateDisplay();
+    })
+});
+
+updateDisplay();

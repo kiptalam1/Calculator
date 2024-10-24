@@ -21,6 +21,19 @@ function divide (a, b) {
     return a / b;
 }
 
-// function operate(operator, num1, num2) {
+function operate(operator, a, b) {
+    switch(operator) {
+        case "+":
+            return add(a, b);
+        case "-":
+            return subtract(a, b);
+        case "*":
+            return multiply(a, b);
+        case "/":
+            return divide(a, b);
+        default:
+            return "Error: Invalid operator!";
+    }
+}
 
-// }
+operate("+", 4, 7);

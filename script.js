@@ -2,6 +2,8 @@ let firstNumber = null;
 let secondNumber = null;
 let operator = null;
 
+
+
 function add(a, b) {
     return a + b;
 }
@@ -24,7 +26,7 @@ function divide (a, b) {
 function operate(operator, a, b) {
     switch(operator) {
         case "+":
-            return add(a, b);
+            return add(a, b); /*break is not needed since the functions have return.*/
         case "-":
             return subtract(a, b);
         case "*":
@@ -36,4 +38,16 @@ function operate(operator, a, b) {
     }
 }
 
-operate("+", 4, 7);
+// operate("+", 4, 7);
+
+// Variable to hold the current display value
+let displayValue = 0;   
+// get display element
+const display = document.getElementById('display');
+
+
+function updateDisplay() {
+    display.textContent = displayValue;
+}
+
+// event listeners for all buttons

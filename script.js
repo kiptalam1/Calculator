@@ -1,6 +1,8 @@
 let firstNumber = null;
 let secondNumber = null;
 let operator = null;
+// Variable to hold the current display value
+let displayValue = 0;  
 
 
 
@@ -40,15 +42,28 @@ function operate(operator, a, b) {
 
 // operate("+", 4, 7);
 
-// Variable to hold the current display value
-let displayValue = 0;   
+
 // get display element
 const display = document.getElementById('display');
-
 
 function updateDisplay() {
     display.textContent = displayValue;
 }
+
+  // Function to clear the display and reset all variables
+function clearCalculator() {
+    displayValue = "0";
+    firstNumber = null;
+    operator = null;
+    secondNumber = null;
+    updateDisplay();
+}
+
+
+const clearBtn = document.querySelector('.clear');
+// event listener to clear the display 
+clearBtn.addEventListener('click', () => clearCalculator());
+
 
 // event listeners for all buttons
 const buttons = document.querySelectorAll(".buttons");

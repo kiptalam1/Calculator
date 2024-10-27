@@ -24,30 +24,38 @@ function updateResultDisplay (){
     result.textContent = displayValue;
 }
 
+// Operator buttons logic
 operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
         if (firstNumber === '') {
-            firstNumber = displayValue;
-        } else if(operator) {
-            calculate();
+            firstNumber = displayValue; 
+            operator = button.textContent; 
+            operation.textContent = `${firstNumber} ${operator}`; // Display the operation
+        } else {
+            const resultValue = calculate(); 
+            result.textContent = resultValue; 
+            firstNumber = resultValue; 
+            operator = button.textContent; 
+            operation.textContent = `${firstNumber} ${operator}`; // Update display with new operator
         }
-        operator = button.textContent;
-        displayValue = '0'
+        displayValue = '0'; // Reset display for the next number input
         updateOperationDisplay();
-    })
+    });
 });
 
-
+// Number buttons logic
 numberButtons.forEach(button => {
     button.addEventListener('click', () => {
-        if (displayValue === "0") {
-            displayValue = button.textContent; 
+        if (displayValue === "0" || displayValue === "") {
+            displayValue = button.textContent; // Replace '0' with the clicked number
         } else {
-            displayValue += button.textContent;
+            displayValue += button.textContent; // Append the clicked number
         }
-        updateOperationDisplay();
-    })
+        updateOperationDisplay(); // Update the display with the current value
+    });
 });
+
+
     
 function deleteLastCharacter() {
     displayValue = displayValue.slice(0, -1);
@@ -61,12 +69,29 @@ deleteBtn.addEventListener('click', () => deleteLastCharacter());
 
 function clearDisplay() {
     displayValue = '0';
-    operation.textContent = displayValue;
-    result.textContent = '';
-    return displayValue;
+    firstNumber = '';
+    secondNumber = '';
+    operation.textContent = '';
+    result.textContent = displayValue;
+    operator = null;
 }
 
 clearBtn.addEventListener('click', () => clearDisplay());
+
+function calculate() {
+    if (firstNumber === '' || operator === null) return;
+    secondNumber = displayValue;
+    const resultValue = operate(operator, parseFloat(firstNumber), parseFloat(secondNumber));
+    result.textContent = resultValue;
+    operation.textContent = `${firstNumber} ${operator} ${secondNumber} =`;
+    displayValue = resultValue.toString();
+    //updateResultDisplay();
+    firstNumber = '';
+    operator = null;
+
+}
+
+equalsBtn.addEventListener('click', () => calculate());
 
 function add(a, b) {
     return a + b;

@@ -8,9 +8,12 @@ const clearBtn = document.querySelector('.clear');
 const number = document.querySelector('.number');
 const operatorButtons = document.querySelectorAll('.operator');
 const deleteBtn = document.querySelector('.delete');
+const equalsBtn = document.querySelector('.equals');
 // const operatorValue = document.querySelector('.operator');
 // Variable to hold the current display value
 let displayValue = "0";  
+
+
 
 
 function updateOperationDisplay() {
@@ -20,13 +23,16 @@ function updateOperationDisplay() {
 function updateResultDisplay (){
     result.textContent = displayValue;
 }
+
 operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
-        if (displayValue === '0') {
-            displayValue = button.textContent;
-        } else {
-            displayValue += button.textContent;
+        if (firstNumber === '') {
+            firstNumber = displayValue;
+        } else if(operator) {
+            calculate();
         }
+        operator = button.textContent;
+        displayValue = '0'
         updateOperationDisplay();
     })
 });

@@ -1,10 +1,66 @@
-let firstNumber = null;
-let secondNumber = null;
+let firstNumber = '';
+let secondNumber = '';
 let operator = null;
+const numberButtons = document.querySelectorAll('.number');
+const operation = document.querySelector('.operation');
+const result = document.querySelector('.result');
+const clearBtn = document.querySelector('.clear');
+const number = document.querySelector('.number');
+const operatorButtons = document.querySelectorAll('.operator');
+const deleteBtn = document.querySelector('.delete');
+// const operatorValue = document.querySelector('.operator');
 // Variable to hold the current display value
 let displayValue = "0";  
 
 
+function updateOperationDisplay() {
+    operation.textContent = displayValue;
+}
+
+function updateResultDisplay (){
+    result.textContent = displayValue;
+}
+operatorButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        if (displayValue === '0') {
+            displayValue = button.textContent;
+        } else {
+            displayValue += button.textContent;
+        }
+        updateOperationDisplay();
+    })
+});
+
+
+numberButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        if (displayValue === "0") {
+            displayValue = button.textContent; 
+        } else {
+            displayValue += button.textContent;
+        }
+        updateOperationDisplay();
+    })
+});
+    
+function deleteLastCharacter() {
+    displayValue = displayValue.slice(0, -1);
+    if (displayValue === '') {
+        displayValue = '0';
+    }
+    updateOperationDisplay();
+}
+
+deleteBtn.addEventListener('click', () => deleteLastCharacter());
+
+function clearDisplay() {
+    displayValue = '0';
+    operation.textContent = displayValue;
+    result.textContent = '';
+    return displayValue;
+}
+
+clearBtn.addEventListener('click', () => clearDisplay());
 
 function add(a, b) {
     return a + b;

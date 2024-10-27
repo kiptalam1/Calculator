@@ -2,7 +2,7 @@ let firstNumber = null;
 let secondNumber = null;
 let operator = null;
 // Variable to hold the current display value
-let displayValue = 0;  
+let displayValue = "0";  
 
 
 
@@ -36,50 +36,7 @@ function operate(operator, a, b) {
         case "/":
             return divide(a, b);
         default:
-            return "Error: Invalid operator!";
+            return "Error";
     }
 }
 
-// operate("+", 4, 7);
-
-
-// get display element
-const display = document.getElementById('display');
-
-function updateDisplay() {
-    display.textContent = displayValue;
-}
-
-  // Function to clear the display and reset all variables
-function clearCalculator() {
-    displayValue = "0";
-    firstNumber = null;
-    operator = null;
-    secondNumber = null;
-    updateDisplay();
-}
-
-
-const clearBtn = document.querySelector('.clear');
-// event listener to clear the display 
-clearBtn.addEventListener('click', () => clearCalculator());
-
-
-// event listeners for all buttons
-const buttons = document.querySelectorAll(".buttons");
-buttons.forEach((button) => {
-    button.addEventListener('click', (event) => {
-        const buttonValue = event.target.getAttribute('data-value');
-
-        if (!buttonValue) return;
-
-        if (displayValue === '0') {
-            displayValue = buttonValue;
-        }else {
-            displayValue += buttonValue;
-        }
-        updateDisplay();
-    })
-});
-
-updateDisplay();

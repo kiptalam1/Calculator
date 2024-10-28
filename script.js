@@ -29,23 +29,20 @@ operatorButtons.forEach(button => {
     button.addEventListener('click', () => {
         if (firstNumber === '') {
             firstNumber = displayValue; 
-            operator = button.textContent; 
-            operation.textContent = `${firstNumber} ${operator}`; // Display the operation
-        } else {
-            const resultValue = calculate(); 
-            result.textContent = resultValue; 
-            firstNumber = resultValue; 
-            operator = button.textContent; 
-            operation.textContent = `${firstNumber} ${operator}`; // Update display with new operator
+        } else if (operator) {
+            calculate();  // Calculate if an operator is already selected
+            firstNumber = displayValue;
         }
-        displayValue = '0'; // Reset display for the next number input
-        updateOperationDisplay();
+        operator = button.textContent; 
+        operation.textContent = `${firstNumber} ${operator}`;
+        displayValue = '0';  // Reset for next number input
     });
 });
 
 // Number buttons logic
 numberButtons.forEach(button => {
     button.addEventListener('click', () => {
+        if (button.textContent === '.' && displayValue.includes('.')) return;
         if (displayValue === "0" || displayValue === "") {
             displayValue = button.textContent; // Replace '0' with the clicked number
         } else {
@@ -82,16 +79,21 @@ function calculate() {
     if (firstNumber === '' || operator === null) return;
     secondNumber = displayValue;
     const resultValue = operate(operator, parseFloat(firstNumber), parseFloat(secondNumber));
-    result.textContent = resultValue;
+    
+    if (resultValue === "Error") {
+        displayValue = resultValue;
+    } else {
+        displayValue = resultValue.toString();
+    }
+    
+    result.textContent = displayValue;
     operation.textContent = `${firstNumber} ${operator} ${secondNumber} =`;
-    displayValue = resultValue.toString();
-    //updateResultDisplay();
-    firstNumber = '';
+    firstNumber = displayValue;  // To allow chaining of operations
     operator = null;
-
 }
 
-equalsBtn.addEventListener('click', () => calculate());
+
+equalsBtn.addEventListener('click', calculate);
 
 function add(a, b) {
     return a + b;
@@ -107,7 +109,7 @@ function multiply(a, b) {
 
 function divide (a, b) {
     if (b === 0) {
-        return "Error: Division by zero";
+        return "Error";
     }
     return a / b;
 }
